@@ -17,4 +17,4 @@ jobs:
         shell: bash
         run: |
           echo "This job is running on windows runner"
-          echo "Runner OS: $RUNNER_OS
+          echo "Runner OS: $RUNNER_OS"
