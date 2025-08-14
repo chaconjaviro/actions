@@ -1,5 +1,8 @@
 name: 07 - Expressions
+run-name: 07 - Using Expressions | DEBUG - ${{ inputs.debug && 'ON' || 'OFF' }}
 
+env:
+  MY_VAR_WITH_DEFAULT: ${{ vars.MY_VAR || 'default value' }}
 on: 
   push:
   workflow_dispatch:
@@ -25,5 +28,7 @@ jobs:
         if: inputs.debug && github.ref == 'refs/heads/main'
         run: echo "I was triggered from main"
       - name: Greeting
-        run: echo "Hello world"
+        run: |
+          echo "Hello world"
+          echo "MY_VAR_WITH_DEFAULT: ${{env.MY_VAR_WITH_DEFAULT }}"
 
