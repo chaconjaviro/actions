@@ -5,18 +5,23 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Shared configuration betwwen steps of the same job
+    defaults:
+      run:
+        working-directory: 04-using-actions/react-app
     steps:
       #0. Checkout code from the repository
       - name: Checkout Code
         uses: actions/checkout@v4
     #   - name: Printing folders
     #     run: ls
-      #1. Install deps of our react application
       - name: Setup Node
         uses: actions/setup-node@v4
         with: 
           node-version: '22.x'
+        #1. Install deps of our react application
       - name: Install dependencies
         run: npm ci
-        working-directory: 04-using-actions/react-app
       #2. Execute automated tests
+      - name: Run Unit Tests
+        run: npm run test
