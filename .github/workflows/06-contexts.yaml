@@ -48,5 +48,5 @@ jobs:
     steps:
       - name: Displays env vars
         run: |
-          echo "Workflow env: $env.MY_WORKFLOW_ENV"
-          echo "Overwritten env: $env.MY_OVERWRITTEN_var"
+          echo "Workflow env: $MY_WORKFLOW_ENV"
+          echo "Overwritten env: $MY_OVERWRITTEN_var"
