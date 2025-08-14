@@ -1,8 +1,13 @@
 name: 06 - Contexts
+run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 
 on: 
     push:
     workflow_dispatch:
+        inputs:
+          debug:
+            type: boolean
+            default: false
 
 jobs:
   echo-data:
@@ -18,5 +23,6 @@ jobs:
           echo "Run no. ${{ github.run_number}}"
       - name: Retrieve Variable
         run: |
+          #Agregarla desde  Settings(icono de engrane) -> Security -> Secrets and variables -> New repository variable
           echo "Variable value: ${{ vars.MY_VAR}}"
 
