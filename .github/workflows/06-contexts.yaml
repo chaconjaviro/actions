@@ -1,20 +1,29 @@
 name: 06 - Contexts
+#debug lo toma de lo indicado en on: -> inputs
 run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 
-on: 
-    push:
-    workflow_dispatch:
-        inputs:
-          debug:
-            type: boolean
-            default: false
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      #Aparecerá check box cuando se lance manualmente desde github
+      debug:
+        type: boolean
+        default: false
+
+env:
+  MY_WORKFLOW_VAR: "workflow"
+  MY_OVERWRITTEN_var: "workflow"
 
 jobs:
   echo-data:
     runs-on: ubuntu-latest
+    env:
+      MY_JOB_VAR: "job"
+      my_overwritten_var: "job"
     steps:
       - name: Display information
-        run: | 
+        run: |
           echo "Event name: ${{ github.event_name}}"
           echo "Ref: ${{ github.sha}}"
           echo "Actor ${{ github.actor}}"
@@ -25,4 +34,21 @@ jobs:
         run: |
           #Agregarla desde  Settings(icono de engrane) -> Security -> Secrets and variables -> New repository variable
           echo "Variable value: ${{ vars.MY_VAR}}"
+      - name: Print Env Variables
+        env: 
+            MY_OVERWRITTEN_VAR: 'step'
+        run: |
+          echo "Workflow env: ${{ env.MY_WORKFLOW_VAR}}"
+          echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR}}"
+      - name: Print Env Variables
+        run: |
+          echo "Workflow env: ${{ env.MY_WORKFLOW_VAR}}"
+          echo "Overwritten env: ${{ env.MY_OVERWRITTEN_VAR}}"
 
+  echo-workflow-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Env Data
+        run: |
+          echo "Workflow env: ${{ env.MY_WORKFLOW_VAR}}"
+          echo "OVERWRITTEN var: ${{ env.MY_OVERWRITTEN_var}}"
