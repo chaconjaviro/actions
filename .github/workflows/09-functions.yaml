@@ -8,6 +8,10 @@ jobs:
     echo1:
       runs-on: ubuntu-latest
       steps:
+#No hacer esto...
+        - name: Print PR title
+          run: echo "${{ github.event.pull_request.title }}"
+#...
         - name: Sleep for 20 seconds
           run: sleep 20
         - name: Failing Step
