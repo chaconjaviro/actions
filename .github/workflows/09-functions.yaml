@@ -14,9 +14,9 @@ jobs:
 #...
         - name: Print PR labels
           run: |
-          cat << EOF
-          ${{ toJSON(github.event.pull_request.labels)}}
-          EOF
+            cat << EOF
+            ${{ toJSON(github.event.pull_request.labels)}}
+            EOF
         - name: Bug step
           if: ${{ !cancelled() && contains(github.event.pull_request.title, 'fix')}}
           run: echo "I am a bug fiz"
