@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const pi = 3.14;
+  //const pi = 3.14;
   return (
     <div className="App">
       <header className="App-header">
