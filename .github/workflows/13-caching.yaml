@@ -8,7 +8,7 @@ on:
         type: boolean
         default: true
       node-version:
-        description: Whether to execute cache step
+        description: Node version
         type: choice
         options:
           - 18.x
@@ -24,7 +24,7 @@ jobs:
       run:
         working-directory: 13-caching/react-app
     outputs:
-      deps-cache-key: ${{ steps.cache-key.outputs.CACHE-KEY }}
+      deps-cache-key: ${{ steps.cache-key.outputs.CACHE_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,14 +35,14 @@ jobs:
       - name: Calculate cache key
         id: cache-key
         run: |
-          echo "CACHE_KEY=deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json')}}" >> "$GITHUB_OUTPUT"
+          echo "CACHE_KEY=deps-node-modules-${{ hashFiles('13-caching/react-app/package-lock.json') }}" >> "$GITHUB_OUTPUT"
       - name: Download cached dependencies
         uses: actions/cache@v3
         if: ${{ inputs.use-cache }}
         id: cache
         with:
           path: 13-caching/react-app/node-modules
-          key: ${{ steps.cache-key.outputs.CACHE_KEY}}
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
