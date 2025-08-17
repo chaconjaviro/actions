@@ -7,15 +7,30 @@ jobs:
     name: ${{ matrix.os }}-${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     strategy:
+      # Other jobs will continuo if another fails
+      fail-fast: false
       matrix:
-        node_version: [18.x, 20.x, 22.x]
+        node-version: [18.x, 20.x, 22.x]
         os:
           - ubuntu-latest
           - windows-latest
+        include:
+          - os: ubuntu-latest
+            node-version: 21.x
+          - os: ubuntu-latest
+            node-version: 22.x
+            tag: experimental
     steps:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: ${{ matrix.node-version }}
+      - name: Fail if experimental
+        if: matrix.tag == 'experimental'
+        run: exit 1
       - name: Perform some tests
-        run: echo "Executing tests ${{ matrix.os }} and NodeJs ${{ matrix.node_version }}"
+        run: |
+          echo "Executing tests ${{ matrix.os }} and NodeJs ${{ matrix.node-version }}"
+          sleep 3
+      - name: Upload test results
+        run: echo "Uploading test results"
