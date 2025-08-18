@@ -1,5 +1,5 @@
 name: 16 - Working with environments
-run-name: 16 - Working with environments | env - ${{ inputs.target-env }}
+run-name: 16 - Working with environments }}
 
 # on:
 #   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "Deploying to: staging"
   e2e-tests:
-    runs-on: ubuntu-test
+    runs-on: ubuntu-latest
     needs: deploy-staging
     steps:
       - name: E2E tests
