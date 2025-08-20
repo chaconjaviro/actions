@@ -1,0 +1,26 @@
+name: 17 Custom actions - composite
+
+on:
+  workflow_dispatch:
+
+env:
+  working-directory: 17-custom-actions/react-app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
+    steps:
+      # Ojo, primero debo hacer checkout
+      - uses: actions/checkout@v4
+      - name: Setup Node and NPM dependencies
+        uses: ./.github/actions/composite-caceh-deps
+        with:
+          node-version: 22.x
+          working-dir: ${{ env.working-directory }}
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
