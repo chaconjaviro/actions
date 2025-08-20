@@ -16,7 +16,7 @@ jobs:
       # Ojo, primero debo hacer checkout
       - uses: actions/checkout@v4
       - name: Setup Node and NPM dependencies
-        uses: ./.github/actions/composite-caceh-deps
+        uses: ./.github/actions/composite-cache-deps
         with:
           node-version: 22.x
           working-dir: ${{ env.working-directory }}
