@@ -82,7 +82,7 @@ async function run() {
     await exec.exec(`git add package.json package-lock.json`, [], {
       ...commonExecOpts,
     });
-    await exec.exec(`git commit "chore update dependencies`, [], {
+    await exec.exec(`git commit -m "chore update dependencies`, [], {
       ...commonExecOpts,
     });
     await exec.exec(`git push -u origin ${targetBranch}. --force`, [], {
