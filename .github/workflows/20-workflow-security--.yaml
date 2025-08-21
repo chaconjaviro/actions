@@ -41,6 +41,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Check PR title
-        uses: ./.github/actions/security-safe-input
+        uses: ./.github/actions/security-safe-input--
         with:
           pr-title: ${{ github.event.pull_request.title }}
